@@ -34,18 +34,25 @@ function AuConverterView(AuTextBox, KmTextBox) {
     };
 }
 
+
 function MinIncreaser(maxText, minText, testText) {
     "use strict";
     return function() {
-        minText.value = midpoint(maxText.value, minText.value) + parseFloat(minText.value);
-        testText.innerHTML = Math.round(parseFloat(minText.value) + midpoint(maxText.value, minText.value));
+        var max = parseFloat(maxText.value),
+            min = parseFloat(minText.value);
+
+        minText.value = midpoint(max, min) + min;
+        testText.innerHTML = Math.round(min + midpoint(max, min));
     };
 }
 
 function MaxDecreaser(maxText, minText, testText) {
     "use strict";
     return function() {
-        maxText.value = maxText.value - midpoint(maxText.value, minText.value);
+        var max = parseFloat(maxText.value),
+            min = parseFloat(minText.value);
+
+        maxText.value = max - midpoint(max, min);
         testText.innerHTML = Math.round(parseFloat(minText.value) + midpoint(maxText.value, minText.value));
     };
 }
