@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<script src="dscan.js"></script>
+	</head>
+	<body onload="initialize()">
+		Converter: <br />
+		AU: <input type="text" id="au" onchange="convertAuToKm()"/><br />
+		km: <input type="text" id="km" onchange="convertKmtoAu()"/><br />
+
+		Search: <br />
+		Max: <input type="text" id="max" /><div id="max" /></br>
+		Min: <input type="text" id="min" /><div id="min" /></br>
+			Test: <div id="test">new</div>
+			Span: <div id="span">new</div>
+		<input type="button" id="miss" value="Miss" onclick="increaseMin()"/>
+		<input type="button" id="hit" value="Hit" onclick="decreaseMax()"/>
+		<br />
+
+		<input type="button" id="undo" value="Undo" />
+		<input type="button" id="redo" value="Redo" /></br>
+
+		<input type="button" id="reset" value="Reset" /></br>
+
+		<canvas id="topView" width="500" height="500"></canvas><br />
+		<canvas id="sideView" width="500" height="500"></canvas><br />
+	</body>
+</html>
