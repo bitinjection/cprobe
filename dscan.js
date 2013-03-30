@@ -1,4 +1,3 @@
-alert("loaded");
 var AU_KM_FACTOR = 149597871,
     convertAuToKm,
     convertKmToAu,
