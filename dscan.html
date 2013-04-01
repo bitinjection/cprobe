@@ -5,27 +5,52 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="dscan.css">
   </head>
-	<body onload="initialize()">
-    <p>Converter:<br /></p>
-    <p>AU: <input type="text" id="au" onchange="convertAuToKm()"/><br /></p>
-    <p>km: <input type="text" id="km" onchange="convertKmToAu()"/><br /><br /></p>
+  <body onload="initialize()">
 
-    <p>Search: <br /></p>
-    <p>Max: <input type="text" id="max" onchange="updateRanges()" /><br /></p>
-    <p>Min: <input type="text" id="min" onchange="updateRanges()" /><br /></p>
+    <table>
+      <thead>
+        <tr>
+          <td colspan="2">
+            <p>Converter</p>
+          </td>
+        </tr>
+      </thead>
+      <tr>
+        <td><p>AU:</p></td>
+        <td><input type="text" id="au" onchange="convertAuToKm()"/></td>
+      </tr>
+      <tr>
+        <td><p>km:</p></td>
+        <td><input type="text" id="km" onchange="convertKmToAu()"/></td>
+      </tr>
+    </table>
+
+    <br />
+
+
+    <table>
+      <thead>
+        <tr>
+          <td colspan="2"><p>Search</p></td>
+        </tr>
+      </thead>
+      <tr><td><p>Max:</p></td><td><input type="text" id="max" onchange="updateRanges()" /></td></tr>
+      <tr><td><p>Min:</p></td><td><input type="text" id="min" onchange="updateRanges()" /></td></tr>
+    </table>
+
     <p>Test:</p><div id="test">Test Point</div>
     <p>Span:</p><div id="span">Distance between min/max</div>
-		<input type="button" id="miss" value="Miss" onclick="increaseMin()"/>
-		<input type="button" id="hit" value="Hit" onclick="decreaseMax()"/>
-		<br />
+    <input type="button" id="miss" value="Miss" onclick="increaseMin()"/>
+    <input type="button" id="hit" value="Hit" onclick="decreaseMax()"/>
+    <br />
 
-		<input type="button" id="undo" value="Undo" />
-		<input type="button" id="redo" value="Redo" /><br />
+    <input type="button" id="undo" value="Undo" />
+    <input type="button" id="redo" value="Redo" /><br />
 
-		<input type="button" id="reset" value="Reset" /><br />
+    <input type="button" id="reset" value="Reset" /><br />
 
-		<canvas id="topView" width="500" height="500"></canvas><br />
-		<canvas id="sideView" width="500" height="500"></canvas><br />
-  <script src="dscan.js"></script>
-	</body>
+    <canvas id="topView" width="500" height="500"></canvas><br />
+    <canvas id="sideView" width="500" height="500"></canvas><br />
+    <script src="dscan.js"></script>
+  </body>
 </html>

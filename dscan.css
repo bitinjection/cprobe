@@ -4,13 +4,27 @@ body
 }
 p
 {
-  font-family: "Times New Roman";
+  font-family: "Helvetica";
   font-size: 12;
   color: white;
 }
 div
 {
-  font-family: "Times New Roman";
+  font-family: "Helvetica";
   font-size: 12;
+  color: #A67C00;
+}
+table
+{
+  padding: 1px;
+  border:1px solid #A67C00;
+}
+td
+{
+  padding: 5px;
+}
+thead
+{
+  background-color:#A67C00;
   color: #A67C00;
 }
