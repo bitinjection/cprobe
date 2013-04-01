@@ -1,27 +1,30 @@
-<html>
-	<head>
-	</head>
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Combat Probing Assistant</title>
+    <meta charset="UTF-8">
+  </head>
 	<body onload="initialize()">
-		Converter!: <br />
-		AU: <input type="text" id="au" onchange="convertAuToKm()"/><br />
-		km: <input type="text" id="km" onchange="convertKmToAu()"/><br />
+    <p>Converter:<br /></p>
+    <p>AU: <input type="text" id="au" onchange="convertAuToKm()"/><br /></p>
+    <p>km: <input type="text" id="km" onchange="convertKmToAu()"/><br /></p>
 
-		Search: <br />
-		Max: <input type="text" id="max" /><div id="max" /></br>
-		Min: <input type="text" id="min" /><div id="min" /></br>
-			Test: <div id="test">new</div>
-			Span: <div id="span">new</div>
+    <p>Search: <br /></p>
+    <p>Max: <input type="text" id="max" onchange="updateRanges()" /><br /></p>
+    <p>Min: <input type="text" id="min" onchange="updateRanges()" /><br /></p>
+    <p>Test:</p><div id="test">Test Point</div>
+    <p>Span:</p><div id="span">Distance between min/max</div>
 		<input type="button" id="miss" value="Miss" onclick="increaseMin()"/>
 		<input type="button" id="hit" value="Hit" onclick="decreaseMax()"/>
 		<br />
 
 		<input type="button" id="undo" value="Undo" />
-		<input type="button" id="redo" value="Redo" /></br>
+		<input type="button" id="redo" value="Redo" /><br />
 
-		<input type="button" id="reset" value="Reset" /></br>
+		<input type="button" id="reset" value="Reset" /><br />
 
 		<canvas id="topView" width="500" height="500"></canvas><br />
 		<canvas id="sideView" width="500" height="500"></canvas><br />
-	</body>
   <script src="dscan.js"></script>
+	</body>
 </html>

@@ -1,9 +1,3 @@
-var AU_KM_FACTOR = 149597871,
-    convertAuToKm,
-    convertKmToAu,
-    increaseMin,
-    decreaseMax;
-
 function AuToKm(Au) {
     "use strict";
     return Au * AU_KM_FACTOR;
@@ -16,7 +10,30 @@ function KmToAu(Km) {
 
 function midpoint(max, min) {
     "use strict";
-    return (max - min) / 2;
+    return min + (max - min) / 2;
+}
+
+function MidpointCalculator(maxTextBox, minTextBox, testText) {
+  return function() {
+    var max = parseFloat(maxTextBox.value),
+        min = parseFloat(minTextBox.value);
+
+    testText.innerHTML = Math.round(midpoint(max, min));
+  }
+}
+
+function onRangeChanged(maxTextBox, minTextBox, testText, spanText) {
+  var updateMidpoint = MidpointCalculator(maxTextBox, minTextBox, testText);
+
+  return function() {
+    updateMidpoint();
+
+    var max = parseFloat(maxTextBox.value),
+        min = parseFloat(minTextBox.value),
+        range = max - min;
+
+    spanText.innerHTML = Math.round(max-min) + " (" + KmToAu(range).toFixed(3) + " AU)";
+  }
 }
 
 
@@ -40,9 +57,11 @@ function MinIncreaser(maxText, minText, testText) {
         var max = parseFloat(maxText.value),
             min = parseFloat(minText.value),
             newMin;
-        newMin = min + midpoint(max, min);
-        minText.value = newMin;
-        testText.innerHTML = Math.round(newMin + midpoint(max, newMin));
+        newMin = midpoint(max, min);
+        minText.value = Math.round(newMin);
+        testText.innerHTML = Math.round(midpoint(max, newMin));
+
+        updateRanges();
     };
 }
 
@@ -53,11 +72,20 @@ function MaxDecreaser(maxText, minText, testText) {
             min = parseFloat(minText.value),
             newMax;
 
-        newMax = min + midpoint(max, min);
-        maxText.value = newMax;
-        testText.innerHTML = Math.round(min + midpoint(newMax, min));
+        newMax = midpoint(max, min);
+        maxText.value = Math.round(newMax);
+        testText.innerHTML = Math.round(midpoint(newMax, min));
+
+        updateRanges();
     };
 }
+
+var AU_KM_FACTOR = 149597871,
+    convertAuToKm,
+    convertKmToAu,
+    increaseMin,
+    decreaseMax,
+    updateRanges;
 
 
 function initialize() {
@@ -66,7 +94,8 @@ function initialize() {
         auTextBox = document.getElementById("au"),
         maxTextBox = document.getElementById("max"),
         minTextBox = document.getElementById("min"),
-        testText = document.getElementById("test");
+        testText = document.getElementById("test"),
+        spanText = document.getElementById("span");
 
 
     convertAuToKm = AuConverterView(auTextBox, kmTextBox);
@@ -74,6 +103,6 @@ function initialize() {
 
     increaseMin = MinIncreaser(maxTextBox, minTextBox, testText);
     decreaseMax = MaxDecreaser(maxTextBox, minTextBox, testText);
-
-    testText.innerHTML = "test";
+    
+    updateRanges = onRangeChanged(maxTextBox, minTextBox, testText, spanText);
 }
