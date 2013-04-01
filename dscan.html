@@ -38,14 +38,17 @@
       <tr><td><p>Min:</p></td><td><input type="text" id="min" onchange="updateRanges()" /></td></tr>
     </table>
 
-    <p>Test:</p><div id="test">Test Point</div>
-    <p>Span:</p><div id="span">Distance between min/max</div>
+    <div><span>Test:</span><span id="test">Test Point</span></div>
+    <div><span>Span:</span><span id="span">Distance between min/max</span></div>
+    <div>
     <input type="button" id="miss" value="Miss" onclick="increaseMin()"/>
     <input type="button" id="hit" value="Hit" onclick="decreaseMax()"/>
-    <br />
+  </div>
 
+    <div>
     <input type="button" id="undo" value="Undo" />
     <input type="button" id="redo" value="Redo" /><br />
+  </div>
 
     <input type="button" id="reset" value="Reset" /><br />
 
