@@ -17,11 +17,11 @@
       </thead>
       <tr>
         <td><p>AU:</p></td>
-        <td><input type="text" id="au" onchange="convertAuToKm()"/></td>
+        <td><input type="text" id="au" onpaste="convertAuToKm()" onkeyup="convertAuToKm()"/></td>
       </tr>
       <tr>
         <td><p>km:</p></td>
-        <td><input type="text" id="km" onchange="convertKmToAu()"/></td>
+        <td><input type="text" id="km" onpaste="convertKmToAu()" onkeyup="convertKmToAu()"/></td>
       </tr>
     </table>
 
@@ -34,8 +34,8 @@
           <td colspan="2"><p>Search</p></td>
         </tr>
       </thead>
-      <tr><td><p>Max:</p></td><td><input type="text" id="max" onchange="updateRanges()" /></td></tr>
-      <tr><td><p>Min:</p></td><td><input type="text" id="min" onchange="updateRanges()" /></td></tr>
+      <tr><td><p>Max:</p></td><td><input type="text" id="max" onpaste="updateRanges()" onkeyup="updateRanges()" /></td></tr>
+      <tr><td><p>Min:</p></td><td><input type="text" id="min" onpaste="updateRanges()" onkeyup="updateRanges()" /></td></tr>
     </table>
 
     <div><span>Test:</span><span id="test">Test Point</span></div>
