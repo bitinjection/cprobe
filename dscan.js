@@ -19,7 +19,6 @@ function MidpointCalculator(maxTextBox, minTextBox, testText) {
         min = parseFloat(minTextBox.value);
 
     testText.value = Math.round(midpoint(max, min));
-    testText.select();
   }
 }
 
