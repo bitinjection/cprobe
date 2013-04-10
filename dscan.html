@@ -36,10 +36,10 @@
       </thead>
       <tr><td><p>Max:</p></td><td><input type="text" id="max" onpaste="updateRanges()" onkeyup="updateRanges()" /></td></tr>
       <tr><td><p>Min:</p></td><td><input type="text" id="min" onpaste="updateRanges()" onkeyup="updateRanges()" /></td></tr>
+      <tr><td><p>Test:</p></td><td><input type="text" id="test" readonly="readonly" /></td></tr>
+      <tr><td><p>Span:</p></td><td><span id="span">Distance between min/max</span></td></tr>
     </table>
 
-    <div><span>Test:</span><input type="text" id="test" readonly="readonly" /></div>
-    <div><span>Span:</span><span id="span">Distance between min/max</span></div>
     <div>
     <input type="button" id="miss" value="Miss" onclick="increaseMin()"/>
     <input type="button" id="hit" value="Hit" onclick="decreaseMax()"/>

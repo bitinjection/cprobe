@@ -14,8 +14,6 @@ div, span
   font-size: x-small;
   color: #A67C00;
 }
-span#test { color: white; }
-span#span { color: white; }
 table
 {
   padding: 0px;

@@ -33,7 +33,7 @@ function onRangeChanged(maxTextBox, minTextBox, testText, spanText) {
         min = parseFloat(minTextBox.value),
         range = max - min;
 
-        spanText.innerHTML = Math.round(max-min) + " (" + KmToAu(range).toFixed(3) + " AU)";
+        spanText.innerHTML = Math.round(max-min) + " km (" + KmToAu(range).toFixed(3) + " AU)";
         }, 4);
   }
 }
