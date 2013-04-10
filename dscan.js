@@ -18,7 +18,8 @@ function MidpointCalculator(maxTextBox, minTextBox, testText) {
     var max = parseFloat(maxTextBox.value),
         min = parseFloat(minTextBox.value);
 
-    testText.innerHTML = Math.round(midpoint(max, min));
+    testText.value = Math.round(midpoint(max, min));
+    testText.select();
   }
 }
 
@@ -26,58 +27,66 @@ function onRangeChanged(maxTextBox, minTextBox, testText, spanText) {
   var updateMidpoint = MidpointCalculator(maxTextBox, minTextBox, testText);
 
   return function() {
-    updateMidpoint();
+    setTimeout(function() {
+        updateMidpoint();
 
-    var max = parseFloat(maxTextBox.value),
+        var max = parseFloat(maxTextBox.value),
         min = parseFloat(minTextBox.value),
         range = max - min;
 
-    spanText.innerHTML = Math.round(max-min) + " (" + KmToAu(range).toFixed(3) + " AU)";
+        spanText.innerHTML = Math.round(max-min) + " (" + KmToAu(range).toFixed(3) + " AU)";
+        }, 4);
   }
 }
 
 
 function KmConverterView(AuTextBox, KmTextBox) {
-    "use strict";
-    return function() {
+  "use strict";
+  return function() {
+    setTimeout(function(){
         AuTextBox.value = KmToAu(KmTextBox.value);
-    };
+        }, 0);
+  };
 }
 
 function AuConverterView(AuTextBox, KmTextBox) {
-    "use strict";
-    return function() {
+  "use strict";
+  return function() {
+    setTimeout(function(){
         KmTextBox.value = AuToKm(AuTextBox.value);
-    };
+        }, 0);
+  };
 }
 
 function MinIncreaser(maxText, minText, testText) {
-    "use strict";
-    return function() {
-        var max = parseFloat(maxText.value),
-            min = parseFloat(minText.value),
-            newMin;
-        newMin = midpoint(max, min);
-        minText.value = Math.round(newMin);
-        testText.innerHTML = Math.round(midpoint(max, newMin));
+  "use strict";
+  return function() {
+    var max = parseFloat(maxText.value),
+        min = parseFloat(minText.value),
+        newMin;
+    newMin = midpoint(max, min);
+    minText.value = Math.round(newMin);
+    testText.value = Math.round(midpoint(max, newMin));
+    testText.select();
 
-        updateRanges();
-    };
+    updateRanges();
+  };
 }
 
 function MaxDecreaser(maxText, minText, testText) {
-    "use strict";
-    return function() {
-        var max = parseFloat(maxText.value),
-            min = parseFloat(minText.value),
-            newMax;
+  "use strict";
+  return function() {
+    var max = parseFloat(maxText.value),
+        min = parseFloat(minText.value),
+        newMax;
 
-        newMax = midpoint(max, min);
-        maxText.value = Math.round(newMax);
-        testText.innerHTML = Math.round(midpoint(newMax, min));
+    newMax = midpoint(max, min);
+    maxText.value = Math.round(newMax);
+    testText.value = Math.round(midpoint(newMax, min));
+    testText.select();
 
-        updateRanges();
-    };
+    updateRanges();
+  };
 }
 
 var AU_KM_FACTOR = 149597871,
@@ -89,20 +98,20 @@ var AU_KM_FACTOR = 149597871,
 
 
 function initialize() {
-    "use strict";
-    var kmTextBox = document.getElementById("km"),
-        auTextBox = document.getElementById("au"),
-        maxTextBox = document.getElementById("max"),
-        minTextBox = document.getElementById("min"),
-        testText = document.getElementById("test"),
-        spanText = document.getElementById("span");
+  "use strict";
+  var kmTextBox = document.getElementById("km"),
+      auTextBox = document.getElementById("au"),
+      maxTextBox = document.getElementById("max"),
+      minTextBox = document.getElementById("min"),
+      testText = document.getElementById("test"),
+      spanText = document.getElementById("span");
 
 
-    convertAuToKm = AuConverterView(auTextBox, kmTextBox);
-    convertKmToAu = KmConverterView(auTextBox, kmTextBox);
+  convertAuToKm = AuConverterView(auTextBox, kmTextBox);
+  convertKmToAu = KmConverterView(auTextBox, kmTextBox);
 
-    increaseMin = MinIncreaser(maxTextBox, minTextBox, testText);
-    decreaseMax = MaxDecreaser(maxTextBox, minTextBox, testText);
-    
-    updateRanges = onRangeChanged(maxTextBox, minTextBox, testText, spanText);
+  increaseMin = MinIncreaser(maxTextBox, minTextBox, testText);
+  decreaseMax = MaxDecreaser(maxTextBox, minTextBox, testText);
+
+  updateRanges = onRangeChanged(maxTextBox, minTextBox, testText, spanText);
 }
