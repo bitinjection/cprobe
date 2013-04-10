@@ -13,6 +13,15 @@ function midpoint(max, min) {
     return min + (max - min) / 2;
 }
 
+function SearchResetter(max, min) {
+  return function() {
+    max.value = 2147483647;
+    min.value = 1;
+
+    updateRanges();
+  }
+}
+
 function MidpointCalculator(maxTextBox, minTextBox, testText) {
   return function() {
     var max = parseFloat(maxTextBox.value),
@@ -93,7 +102,8 @@ var AU_KM_FACTOR = 149597871,
     convertKmToAu,
     increaseMin,
     decreaseMax,
-    updateRanges;
+    updateRanges,
+    resetSearch;
 
 
 function initialize() {
@@ -113,4 +123,5 @@ function initialize() {
   decreaseMax = MaxDecreaser(maxTextBox, minTextBox, testText);
 
   updateRanges = onRangeChanged(maxTextBox, minTextBox, testText, spanText);
+  resetSearch = SearchResetter(maxTextBox, minTextBox);
 }
