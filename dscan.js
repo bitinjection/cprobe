@@ -1,16 +1,16 @@
 function AuToKm(Au) {
-    "use strict";
-    return Au * AU_KM_FACTOR;
+  "use strict";
+  return Au * AU_KM_FACTOR;
 }
 
 function KmToAu(Km) {
-    "use strict";
-    return Km / AU_KM_FACTOR;
+  "use strict";
+  return Km / AU_KM_FACTOR;
 }
 
 function midpoint(max, min) {
-    "use strict";
-    return min + (max - min) / 2;
+  "use strict";
+  return min + (max - min) / 2;
 }
 
 function SearchResetter(max, min) {
@@ -22,7 +22,7 @@ function SearchResetter(max, min) {
   }
 }
 
-function MidpointCalculator(maxTextBox, minTextBox, testText) {
+function TestpointCalculator(maxTextBox, minTextBox, testText) {
   return function() {
     var max = parseFloat(maxTextBox.value),
         min = parseFloat(minTextBox.value);
@@ -32,15 +32,15 @@ function MidpointCalculator(maxTextBox, minTextBox, testText) {
 }
 
 function onRangeChanged(maxTextBox, minTextBox, testText, spanText) {
-  var updateMidpoint = MidpointCalculator(maxTextBox, minTextBox, testText);
+  var updateTestpoint = TestpointCalculator(maxTextBox, minTextBox, testText);
 
   return function() {
-    setTimeout(function() {
-        updateMidpoint();
-
-        var max = parseFloat(maxTextBox.value),
+    var max = parseFloat(maxTextBox.value),
         min = parseFloat(minTextBox.value),
         range = max - min;
+
+    setTimeout(function() {
+        updateTestpoint();
 
         spanText.innerHTML = Math.round(max-min) + " km (" + KmToAu(range).toFixed(3) + " AU)";
         }, 4);
@@ -66,27 +66,35 @@ function AuConverterView(AuTextBox, KmTextBox) {
   };
 }
 
-function MinIncreaser(maxText, minText, testText) {
+function MinIncreaser(maxText, minText, testText, history) {
   "use strict";
   return function() {
     var max = parseFloat(maxText.value),
         min = parseFloat(minText.value),
-        newMin;
+        newMin,
+        state;
+
     newMin = midpoint(max, min);
     minText.value = Math.round(newMin);
     testText.value = Math.round(midpoint(max, newMin));
     testText.select();
 
     updateRanges();
-  };
+
+    state = new Object();
+    state.max = max;
+    state.min = min;
+    history.push(state);
+  }
 }
 
-function MaxDecreaser(maxText, minText, testText) {
+function MaxDecreaser(maxText, minText, testText, history) {
   "use strict";
   return function() {
     var max = parseFloat(maxText.value),
         min = parseFloat(minText.value),
-        newMax;
+        newMax,
+        state;
 
     newMax = midpoint(max, min);
     maxText.value = Math.round(newMax);
@@ -94,7 +102,12 @@ function MaxDecreaser(maxText, minText, testText) {
     testText.select();
 
     updateRanges();
-  };
+
+    state = new Object();
+    state.max = max;
+    state.min = min;
+    history.push(state);
+  }
 }
 
 var AU_KM_FACTOR = 149597871,
@@ -103,8 +116,20 @@ var AU_KM_FACTOR = 149597871,
     increaseMin,
     decreaseMax,
     updateRanges,
-    resetSearch;
+    resetSearch,
+    undo,
+    history;
 
+function Undoer(history, maxTextBox, minTextBox) {
+  return function() {
+    var state = history.pop();
+
+    maxTextBox.value = state.max;
+    minTextBox.value = state.min;
+
+    updateRanges();
+  }
+}
 
 function initialize() {
   "use strict";
@@ -115,12 +140,14 @@ function initialize() {
       testText = document.getElementById("test"),
       spanText = document.getElementById("span");
 
+  history = new Array();
+  undo = Undoer(history, maxTextBox, minTextBox);
 
   convertAuToKm = AuConverterView(auTextBox, kmTextBox);
   convertKmToAu = KmConverterView(auTextBox, kmTextBox);
 
-  increaseMin = MinIncreaser(maxTextBox, minTextBox, testText);
-  decreaseMax = MaxDecreaser(maxTextBox, minTextBox, testText);
+  increaseMin = MinIncreaser(maxTextBox, minTextBox, testText, history);
+  decreaseMax = MaxDecreaser(maxTextBox, minTextBox, testText, history);
 
   updateRanges = onRangeChanged(maxTextBox, minTextBox, testText, spanText);
   resetSearch = SearchResetter(maxTextBox, minTextBox);
