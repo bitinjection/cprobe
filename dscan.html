@@ -40,14 +40,21 @@
       <tr><td><p>Span:</p></td><td><span id="span">Distance between min/max</span></td></tr>
     </table>
 
-  <div>
-    <input type="button" id="miss" value="Miss" onclick="increaseMin()"/>
-    <input type="button" id="hit" value="Hit" onclick="decreaseMax()"/>
-  </div>
+    <table>
+    <tr>
+    <td><input type="button" id="miss" value="Miss" onclick="increaseMin()"/></td>
+    <td><input type="button" id="hit" value="Hit" onclick="decreaseMax()"/></td>
+    </tr>
 
-  <div>
-    <input type="button" id="undo" value="Undo" onclick="undo()"/>
-    <input type="button" id="reset" value="Reset" onclick="resetSearch()" /><br />
+    <tr>
+    <td><input type="button" id="undo" value="Undo" onclick="undo()"/></td>
+    <td><input type="button" id="reset" value="Reset" onclick="resetSearch()" /></td>
+    </tr>
+    </table>
+
+  <p id="time">00:00:00</p>
+  <input type="button" id="stopwatch" value="Start" />
+  
   </div>
 
 
