@@ -40,20 +40,19 @@
       <tr><td><p>Span:</p></td><td><span id="span">Distance between min/max</span></td></tr>
     </table>
 
-    <div>
+  <div>
     <input type="button" id="miss" value="Miss" onclick="increaseMin()"/>
     <input type="button" id="hit" value="Hit" onclick="decreaseMax()"/>
   </div>
 
-    <div>
+  <div>
     <input type="button" id="undo" value="Undo" onclick="undo()"/>
-    <input type="button" id="redo" value="Redo" /><br />
+    <input type="button" id="reset" value="Reset" onclick="resetSearch()" /><br />
   </div>
 
-    <input type="button" id="reset" value="Reset" onclick="resetSearch()" /><br />
 
-    <canvas id="topView" width="500" height="500"></canvas><br />
-    <canvas id="sideView" width="500" height="500"></canvas><br />
-    <script src="dscan.js"></script>
+  <canvas id="topView" width="500" height="500"></canvas><br />
+  <canvas id="sideView" width="500" height="500"></canvas><br />
+  <script src="dscan.js"></script>
   </body>
 </html>
