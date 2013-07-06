@@ -151,4 +151,6 @@ function initialize() {
 
   updateRanges = onRangeChanged(maxTextBox, minTextBox, testText, spanText);
   resetSearch = SearchResetter(maxTextBox, minTextBox);
+
+  resetSearch();
 }
