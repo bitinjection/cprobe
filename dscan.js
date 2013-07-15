@@ -31,7 +31,7 @@ function TestpointCalculator(maxTextBox, minTextBox, testText) {
   }
 }
 
-function onRangeChanged(maxTextBox, minTextBox, testText, spanText) {
+function onRangeChanged(maxTextBox, minTextBox, testText, spanText, topView) {
   var updateTestpoint = TestpointCalculator(maxTextBox, minTextBox, testText);
 
   return function() {
@@ -43,6 +43,58 @@ function onRangeChanged(maxTextBox, minTextBox, testText, spanText) {
         updateTestpoint();
 
         spanText.innerHTML = Math.round(max-min) + " km (" + KmToAu(range).toFixed(3) + " AU)";
+
+        var context = topView.getContext("2d");
+        var centerX = topView.width / 2;
+        var centerY = topView.height / 2;
+        var radius = (max / 2147483647) * (topView.width / 2);
+
+        context.clearRect(0, 0, topView.width, topView.height);
+
+        context.beginPath();
+        context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+        //context.fillStyle = "black";
+        //context.fill();
+        context.lineWidth = 1;
+        context.strokeStyle = "black";
+        context.stroke();
+        //context.closePath();
+
+        radius = (min / 2147483647) * (topView.width / 2);
+        context.beginPath();
+        context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+        //context.fillStyle = "black";
+        //context.fill();
+        context.lineWidth = 1;
+        context.strokeStyle = "black";
+        context.stroke();
+        //context.closePath();
+
+        radius = ((((max - min) / 2) + min) / 2147483647) * (topView.width / 2);
+        context.beginPath();
+        context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+        //context.fillStyle = "black";
+        //context.fill();
+        context.lineWidth = (range / 2147483647) * (topView.width / 2);
+        context.strokeStyle = "red";
+        context.stroke();
+        //context.closePath();
+
+
+        for(var i=5;i<20;i+=5)
+        {
+          radius = ((i * AU_KM_FACTOR) / 2147483647) * (topView.width / 2);
+          context.beginPath();
+          context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+          //context.fillStyle = "black";
+          //context.fill();
+          context.lineWidth = 1;
+          context.strokeStyle = "white";
+          context.stroke();
+          //context.closePath();
+
+        }
+
         }, 4);
   }
 }
@@ -81,7 +133,7 @@ function MinIncreaser(maxText, minText, testText, history) {
 
     updateRanges();
 
-    state = new Object();
+    state = {};
     state.max = max;
     state.min = min;
     history.push(state);
@@ -103,7 +155,7 @@ function MaxDecreaser(maxText, minText, testText, history) {
 
     updateRanges();
 
-    state = new Object();
+    state = {};
     state.max = max;
     state.min = min;
     history.push(state);
@@ -138,9 +190,10 @@ function initialize() {
       maxTextBox = document.getElementById("max"),
       minTextBox = document.getElementById("min"),
       testText = document.getElementById("test"),
-      spanText = document.getElementById("span");
+      spanText = document.getElementById("span"),
+      topView = document.getElementById("topView");
 
-  history = new Array();
+  history = [];
   undo = Undoer(history, maxTextBox, minTextBox);
 
   convertAuToKm = AuConverterView(auTextBox, kmTextBox);
@@ -149,7 +202,7 @@ function initialize() {
   increaseMin = MinIncreaser(maxTextBox, minTextBox, testText, history);
   decreaseMax = MaxDecreaser(maxTextBox, minTextBox, testText, history);
 
-  updateRanges = onRangeChanged(maxTextBox, minTextBox, testText, spanText);
+  updateRanges = onRangeChanged(maxTextBox, minTextBox, testText, spanText, topView);
   resetSearch = SearchResetter(maxTextBox, minTextBox);
 
   resetSearch();
