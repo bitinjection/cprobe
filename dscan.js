@@ -173,12 +173,15 @@ var AU_KM_FACTOR = 149597871,
 
 function Undoer(scanHistory, maxTextBox, minTextBox) {
   return function() {
-    var state = scanHistory.pop();
+    if(scanHistory.length > 0)
+    {
+      var state = scanHistory.pop();
 
-    maxTextBox.value = state.max;
-    minTextBox.value = state.min;
+      maxTextBox.value = state.max;
+      minTextBox.value = state.min;
 
-    updateRanges();
+      updateRanges();
+    }
   }
 }
 
