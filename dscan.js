@@ -118,7 +118,7 @@ function AuConverterView(AuTextBox, KmTextBox) {
   };
 }
 
-function MinIncreaser(maxText, minText, testText, history) {
+function MinIncreaser(maxText, minText, testText, scanHistory) {
   "use strict";
   return function() {
     var max = parseFloat(maxText.value),
@@ -136,11 +136,11 @@ function MinIncreaser(maxText, minText, testText, history) {
     state = {};
     state.max = max;
     state.min = min;
-    history.push(state);
+    scanHistory.push(state);
   }
 }
 
-function MaxDecreaser(maxText, minText, testText, history) {
+function MaxDecreaser(maxText, minText, testText, scanHistory) {
   "use strict";
   return function() {
     var max = parseFloat(maxText.value),
@@ -158,7 +158,7 @@ function MaxDecreaser(maxText, minText, testText, history) {
     state = {};
     state.max = max;
     state.min = min;
-    history.push(state);
+    scanHistory.push(state);
   }
 }
 
@@ -169,12 +169,11 @@ var AU_KM_FACTOR = 149597871,
     decreaseMax,
     updateRanges,
     resetSearch,
-    undo,
-    history;
+    undo;
 
-function Undoer(history, maxTextBox, minTextBox) {
+function Undoer(scanHistory, maxTextBox, minTextBox) {
   return function() {
-    var state = history.pop();
+    var state = scanHistory.pop();
 
     maxTextBox.value = state.max;
     minTextBox.value = state.min;
@@ -193,14 +192,14 @@ function initialize() {
       spanText = document.getElementById("span"),
       topView = document.getElementById("topView");
 
-  history = [];
-  undo = Undoer(history, maxTextBox, minTextBox);
+  var scanHistory = new Array();
+  undo = Undoer(scanHistory, maxTextBox, minTextBox);
 
   convertAuToKm = AuConverterView(auTextBox, kmTextBox);
   convertKmToAu = KmConverterView(auTextBox, kmTextBox);
 
-  increaseMin = MinIncreaser(maxTextBox, minTextBox, testText, history);
-  decreaseMax = MaxDecreaser(maxTextBox, minTextBox, testText, history);
+  increaseMin = MinIncreaser(maxTextBox, minTextBox, testText, scanHistory);
+  decreaseMax = MaxDecreaser(maxTextBox, minTextBox, testText, scanHistory);
 
   updateRanges = onRangeChanged(maxTextBox, minTextBox, testText, spanText, topView);
   resetSearch = SearchResetter(maxTextBox, minTextBox);
