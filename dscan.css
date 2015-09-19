@@ -1,48 +1,56 @@
 body
 {
-  background-color: #090974;
+  background-color: #222930;
 }
 p
 {
   font-family: "Helvetica";
   font-size: x-small;
-  color: white;
+  color: #E9E9E9;
 }
 div, span
 {
   font-family: "Helvetica";
   font-size: x-small;
-  color: #A67C00;
+  color: #E9E9E9;
 }
 table
 {
-padding: 0px;
-border:0px solid #A67C00;
+  padding: 0px;
+  border:0px solid #4EB1BA;
 }
 td
 {
-padding: 0px;
+  padding: 0px;
 }
 thead
 {
-  background-color:#A67C00;
-  color: #A67C00;
+  border-color: #4EB1BA;
+  background-color:#22293;
+  color: #4EB1BA;
   text-align: center;
+  font-size: 22;
 }
 button
 {
-solid: #A67C00;
-font: "Helvetica";
-padding: 3px;
+  solid: #E9E9E9;
+  font: "Helvetica";
+  padding: 3px;
 }
 
 input
 {
-border: 10px;
-        font-size:10px;
-color:#A67C00;
-      background-color:#1b1bb3;
-width: 100%;
+  border-style: solid;
+  border-color: #4EB1BA;
+  font-size:10px;
+  color:#E9E9E9;
+  background-color:#222930;
+  width: 100%;
 }
-
+canvas
+{
+  border-style: solid;
+  border-color: #4EB1BA;
+  border-width: 1px;
+}
 

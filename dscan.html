@@ -1,60 +1,86 @@
 <!DOCTYPE html> 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>Combat Probing Assistant</title>
-<meta charset="UTF-8" />
-<link rel="stylesheet" type="text/css" href="dscan.css" />
-</head>
-<body onload="initialize()">
+	<head>
+		<title>Combat Probing Assistant</title>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" type="text/css" href="dscan.css" />
+	</head>
+	<body onload="initialize()">
 
-<table>
-<tr><td>
-<table>
-<thead>
-<tr>
-<td colspan="2">
-<p>Converter</p>
-</td>
-</tr>
-</thead>
-<tr>
-<td><p>AU:</p></td>
-<td><input type="text" id="au" onpaste="convertAuToKm()" onkeyup="convertAuToKm()"/></td>
-</tr>
-<tr>
-<td><p>km:</p></td>
-<td><input type="text" id="km" onpaste="convertKmToAu()" onkeyup="convertKmToAu()"/></td>
-</tr>
-</table>
+		<table>
+			<tr><td>
+					<table width="100%">
+						<thead>
+							<tr>
+								<td colspan="2">
+									<p>Converter</p>
+								</td>
+							</tr>
+						</thead>
+						<tr>
+							<td><p>AU:</p></td>
+							<td><input type="text" id="au" onpaste="convertAuToKm()" onkeyup="convertAuToKm()"/></td>
+						</tr>
+						<tr>
+							<td><p>km:</p></td>
+							<td><input type="text" id="km" onpaste="convertKmToAu()" onkeyup="convertKmToAu()"/></td>
+						</tr>
+					</table>
 
-<br />
-<table>
-<thead>
-<tr>
-<td colspan="2"><p>Search</p></td>
-</tr>
-</thead>
-<tr><td><p>Max:</p></td><td><input type="text" id="max" onpaste="updateRanges()" onkeyup="updateRanges()" /></td></tr>
-<tr><td><p>Min:</p></td><td><input type="text" id="min" onpaste="updateRanges()" onkeyup="updateRanges()" /></td></tr>
-<tr><td><p>Test:</p></td><td><input type="text" id="test" readonly="readonly" /></td></tr>
-<tr><td><p>Span:</p></td><td><span id="span">Distance between min/max</span></td></tr>
-</table>
-<table>
-<tr>
-<td><input type="button" id="miss" value="Miss" onclick="increaseMin()"/></td>
-<td><input type="button" id="hit" value="Hit" onclick="decreaseMax()"/></td>
-</tr>
+					<br />
+					<table>
+						<thead>
+							<tr>
+								<td colspan="2">
+									<p>Search</p>
+								</td>
+							</tr>
+						</thead>
+						<form>
+							<tr>
+								<td> <input type="radio" name="dimensions" value="one" onclick="setMidpoint1d()" /></td>
+								<td><p>1D</p></td>
+							</tr>
+							<tr>
+								<td><input type="radio" name="dimensions" value="two" onclick="setMidpoint2d()" /></td>
+								<td><p>2D</p></td>
+							</tr>
+							<tr>
+								<td><input type="radio" name="dimensions" value="three" onclick="setMidpoint3d()" checked/></td>
+								<td><p>3D</p></td>
+							</tr>
+						</form>
+						<tr>
+							<td><p>Max:</p></td>
+							<td><input type="text" id="max" onpaste="updateRanges()" onkeyup="updateRanges()" /></td>
+						</tr>
+						<tr>
+							<td><p>Min:</p></td>
+							<td><input type="text" id="min" onpaste="updateRanges()" onkeyup="updateRanges()" /></td>
+						</tr>
+						<tr>
+							<td><p>Test:</p></td><td><input type="text" id="test" readonly="readonly" /></td>
+						</tr>
+						<tr>
+							<td><p>Span:</p></td><td><span id="span">Distance between min/max</span></td>
+						</tr>
+					</table>
+					<table>
+						<tr>
+							<td><input type="button" id="miss" value="Miss" onclick="increaseMin()"/></td>
+							<td><input type="button" id="hit" value="Hit" onclick="decreaseMax()"/></td>
+						</tr>
 
-<tr>
-<td><input type="button" id="undo" value="Undo" onclick="undo()"/></td>
-<td><input type="button" id="reset" value="Reset" onclick="resetSearch()" /></td>
-</tr>
-</table>
-</td>
-<td>
-<canvas id="topView" width="350" height="350"></canvas><br />
-</td></tr>
-</table>
-<script type="text/javascript" src="dscan.js"></script>
-</body>
+						<tr>
+							<td><input type="button" id="undo" value="Undo" onclick="undo()"/></td>
+							<td><input type="button" id="reset" value="Reset" onclick="resetSearch()" /></td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<canvas id="topView" width="350" height="350"></canvas><br />
+			</td></tr>
+		</table>
+		<script type="text/javascript" src="dscan.js"></script>
+	</body>
 </html>
